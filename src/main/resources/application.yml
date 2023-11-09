@@ -1,0 +1,60 @@
+#################################### 공통 적용 영역 ####################################
+server:
+  port : 8080
+  contextPath: /
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      pool-name: pub-weather-hikari-pool
+  jpa:
+    hibernate:
+      ddl-auto: none  # option type: create, create-drop, update, validate, none
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE_ENV:local} # 환경변수에 설정된 값으로 세부 프로파일 값 호출('local','release','prod')
+  servlet:
+    multipart: # 파일 업로드 용량 설정
+      max-file-size: 30MB
+      max-request-size: 30MB
+
+
+springdoc:
+  api-docs:
+    path: /api-docs/pub-weather
+    groups:
+      enabled: true
+  default-produces-media-type: application/json;charset=UTF-8
+  default-consumes-media-type: application/json;charset=UTF-8
+  swagger-ui:
+    operations-sorter: alpha # 메서드 순서 정렬
+    tags-sorter: alpha # 태그 정렬 구분자 (alpha : 알파벳 ,
+    path: /swagger-ui.html #스웨거 호출 패스
+  cache:
+    disabled: true
+  packages-to-scan: com.billlog.publicweatherapi # 패키지 스캔 경로 ( 패키지, path 등등 가능 )
+
+#################################### 공통 적용 영역 ####################################
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: release
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+
+
