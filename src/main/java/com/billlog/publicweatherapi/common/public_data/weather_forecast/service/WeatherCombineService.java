@@ -216,7 +216,8 @@ public class WeatherCombineService {
             int iMinute = Integer.parseInt(minute);
             if ( iMinute < 40 ){
                 int targetHour = Integer.parseInt(hour) - 1;
-                hour = String.valueOf(targetHour);
+                String prefix = targetHour < 10 ? "0" : "" ;
+                hour =  prefix  + String.valueOf(targetHour);
             }
             customBaseTime = hour + "00";
 
@@ -229,7 +230,8 @@ public class WeatherCombineService {
             int iMinute = Integer.parseInt(minute);
             if ( iMinute < 45 ){
                 int targetHour = Integer.parseInt(hour) - 1;
-                hour = String.valueOf(targetHour);
+                String prefix = targetHour < 10 ? "0" : "" ;
+                hour =  prefix  + String.valueOf(targetHour);
             }
 
             customBaseTime = hour + "30";
