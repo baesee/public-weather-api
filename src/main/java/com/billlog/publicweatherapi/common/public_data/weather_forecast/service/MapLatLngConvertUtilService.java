@@ -2,6 +2,7 @@ package com.billlog.publicweatherapi.common.public_data.weather_forecast.service
 
 import com.billlog.publicweatherapi.common.public_data.weather_forecast.dto.response.LatXLngY;
 import lombok.extern.slf4j.Slf4j;
+import org.locationtech.proj4j.*;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -87,5 +88,32 @@ public class MapLatLngConvertUtilService {
         }
         return rs;
 
+    }
+
+    /**
+     * 위도, 경도 값을 받아 TM 좌표계 값으로 변경
+     * 사용처 : 에어코리아 측정소 조회
+     * @param lat_X
+     * @param lng_Y
+     * @return
+     */
+    public LatXLngY convertTM(double lat_X, double lng_Y){
+
+        CRSFactory crsFactory = new CRSFactory();
+        CoordinateReferenceSystem soruce = crsFactory.createFromName("epsg:4326");
+        CoordinateReferenceSystem target = crsFactory.createFromName("epsg:2097");
+
+        CoordinateTransformFactory ctFactory =  new CoordinateTransformFactory();
+        CoordinateTransform transform = ctFactory.createTransform(soruce, target);
+
+        ProjCoordinate result = new ProjCoordinate();
+        transform.transform(new ProjCoordinate(lat_X, lng_Y), result);
+        System.out.println("x : "+ result.x + " y :" + result.y);
+
+        LatXLngY rs = new LatXLngY();
+        rs.lat = result.x;
+        rs.lng = result.y;
+
+        return rs;
     }
 }

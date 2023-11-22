@@ -55,10 +55,16 @@ public:
   data:
     forecast:
       key : ${PUBLIC_DATA_FORECAST_KEY}
-      short:
-        baseUrl : http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0
-      medium:
-        baseUrl : http://apis.data.go.kr/1360000/MidFcstInfoService
+      short: #기상청 단기예보
+        baseUrl: http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0
+      medium: #기상청 중기예보
+        baseUrl: http://apis.data.go.kr/1360000/MidFcstInfoService
+      living: #기상청 생활기상지수 (자외선)
+        baseUrl: http://apis.data.go.kr/1360000/LivingWthrIdxServiceV4
+      airkorea: #에어코리아 대기
+        baseUrl: http://apis.data.go.kr/B552584/ArpltnInforInqireSvc
+      airkorea-station: #에어코리아 측정소
+        baseUrl: http://apis.data.go.kr/B552584/MsrstnInfoInqireSvc
 
 # Logging
 logging:
